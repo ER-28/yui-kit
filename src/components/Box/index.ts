@@ -6,9 +6,7 @@ import { StyleMixin } from '../../styled/StyledComponent.js';
 export class Box extends StyleMixin(LitElement) {
   render() {
     return this.styledRender(html`
-      <div>
-        <p>testing</p>
-      </div>
+      <slot></slot>
     `);
   }
 }
