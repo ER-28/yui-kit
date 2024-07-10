@@ -1,12 +1,11 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { literal, unsafeStatic } from 'lit/static-html.js';
+import { LitElement, html, TemplateResult, render } from 'lit';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 interface StyleMixinInterface {
   padding: string;
   margin: string;
-  bgcolor: string;
+  bgColor: string;
   as: string;
 }
 
@@ -15,13 +14,14 @@ const StyleMixin = <T extends Constructor<LitElement>>(superclass: T) => {
     static properties = {
       padding: { type: String },
       margin: { type: String },
-      bgcolor: { type: String },
+      bgColor: { type: String },
       as: { type: String },
     };
 
+
     padding = '0';
     margin = '0';
-    bgcolor = 'transparent';
+    bgColor = 'transparent';
     as = 'div';
 
     constructor(...args: any[]) {
@@ -31,11 +31,11 @@ const StyleMixin = <T extends Constructor<LitElement>>(superclass: T) => {
     styledRender(content: TemplateResult): TemplateResult {
       const styles = html`
         <style>
-          .custom {
+          .styled {
             display: block;
             padding: ${this.padding};
             margin: ${this.margin};
-            background-color: ${this.bgcolor};
+            background-color: ${this.bgColor};
           }
         </style>
       `;
@@ -46,15 +46,11 @@ const StyleMixin = <T extends Constructor<LitElement>>(superclass: T) => {
       `;
     }
 
-    renderElement(as: string, content: TemplateResult): TemplateResult {
-      switch (as) {
-        case 'p':
-          return html`<p class="custom">${content}</p>`;
-        case 'span':
-          return html`<span class="custom">${content}</span>`;
-        default:
-          return html`<div class="custom">${content}</div>`;
-      }
+    renderElement(as: string, content: TemplateResult) {
+      const element = document.createElement(as);
+      element.classList.add('styled');
+      render(content, element);
+      return element;
     }
   }
 
