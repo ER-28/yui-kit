@@ -10,15 +10,15 @@
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "prepare": "husky",
     "analyze": "cem analyze --litelement",
-
     "build": "tsc -p tsconfig.json",
     "move:demo": "rimraf demo/lib && cp -r out-tsc/src demo/lib",
     "build:pages": "npm run build && npm run move:demo && cd demo && npm install && npm run build",
-
+    "deploy:pages": "npm run build:pages && gh-pages -d demo/dist",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
     "start:pages": "npm run build && npm run move:demo && cd demo && npm install && npm run dev"
   },
   "dependencies": {
+    "gh-pages": "^6.1.1",
     "lit": "^3.1.4"
   },
   "devDependencies": {
