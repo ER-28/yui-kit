@@ -1,4 +1,3 @@
-import './assets/main.css'
 import './lib/yui-kit.js'
 
 import { createApp } from 'vue'
