@@ -11,8 +11,8 @@
     "prepare": "husky",
     "analyze": "cem analyze --litelement",
     "build": "tsc -p tsconfig.json",
-    "move": "rimraf dev/src/lib && cp -r out-tsc/src dev/src/lib",
-    "start": "npm run build && npm run move && cd dev && npm install && npm run dev"
+    "build:dev": "npm run build && rimraf dev/src/lib && cp -r out-tsc/src dev/src/lib",
+    "start": "npm run build:dev &&  && cd dev && npm install && npm run dev"
   },
   "dependencies": {
     "gh-pages": "^6.1.1",
